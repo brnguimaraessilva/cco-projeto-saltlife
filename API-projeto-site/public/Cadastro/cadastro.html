@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo-loginusu.css">
+    <title> Cadastro || SaltLife </title>
+</head>
+<body class="corpo-login"> 
+    <div class="metade-um">
+        <img class="logo-login" src="../img/RED-Salt.png" />
+    </div>
+    <div class="metade-dois">
+        <div class="header">
+            <div class="container">
+                <div class="nav">
+                    <ul>
+                        <li><a href="../index.html" class="current">Login USUARIO</a></li>
+                        <li><a href="../Sobre/sobre.html">Sobre</a></li>
+                        <li><a href="../LoginMOD/loginmod.html">Login MOD's</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="box-login">
+                <img src="../img/img-cadastro2.png" class="img-loginmod">
+
+                <form id="form_cadastro" method="POST">
+
+                    <div class="div-login-email">
+                        <label class="form-label">E-mail:</label>
+                        <input type="text" class="form-input" id="in_email" name="login" placeholder="Digite o seu E-mail">
+                    </div>
+                    <div class="div-login-senha">
+                            <input type="password" class="form-input-senha" id="in_senha" name="senha" placeholder="Senha">
+                            <input type="password" class="form-input-senha" id="in_confsenha" placeholder="Confirmar Senha">
+                    </div>
+                    <div class="div-login-nome">
+                        <label class="form-label">Nome:</label>
+                        <input type="text" class="form-input" name="nome" id="in_nome"placeholder="Digite seu Nome">
+                    </div>
+                    <div class="div-login-data">
+                        <label class="form-label">Nascimento:</label>
+                        <input type="date" class="form-input" name="data" id="in_nascimento"  placeholder="DD/MM/AAAA">
+                    </div>
+                    <div class="div-login-favorito">
+                        <label class="form-label">Tênis favorito:</label>
+                        <input type="text" class="form-input-tenis" name="tenis" id="in_tenis" placeholder="Digite o seu Tênis favorito">
+                    </div>
+                </form>
+                    <div class="div-login-btn"> 
+                        <button onclick="cadastrar()">Cadastrar</button>
+                    </div>
+                </div>
+        </div>
+        <div class="footer-cad">
+                <h4 class="parametro">saltlife@gmail.com</h4>
+                <h4>(11) 94538-4967</h4>
+                <div class="img">
+                    <img src="../img/instagram.png"><img src="../img/facebook.png"><img src="../img/twitter.png">
+                </div>
+        </div> 
+    </div>
+
+</body>
+</html>
+
+<script>
+
+function cadastrar() {
+  verificarCadastro()
+}
+
+function verificarCadastro() {
+  var email = in_email.value;
+  var senha = in_senha.value;
+  var confirmaSenha = in_confsenha.value;
+  var nome = in_nome.value;
+  var data_nascimento = in_nascimento.value;
+  var tenis_favorito = in_tenis.value;
+
+  if (email == "" && senha == "" && confirmaSenha == "" && nome == "" && data_nascimento == "" && tenis_favorito == "") {
+    alert("Insira todos os seus Dados");
+  } else if (email == "") { 
+    alert("Insira um Endereço de E-mail");
+  } else if (senha == "") {
+    alert("Insira uma Senha");
+  } else if (confirmaSenha == "") {
+    alert("Insira uma Confirmação de Senha");
+  } else if (senha != confirmaSenha) {
+    alert("Senhas Divergentes, Insira Senhas Iguais");
+  } else if (nome == "") {
+    alert("Insira um Nome");
+  } else if (data_nascimento == "") {
+    alert("Insira uma Data de Nascimento");
+  } else if (tenis_favorito == "") {
+    alert("Insira algum Tenis Favorito");
+  }  
+  else {
+    var formulario = new URLSearchParams(new FormData(form_cadastro));
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (response) {
+            
+            if (response.ok) {
+
+                window.location.href='../index.html';
+
+            } else {
+
+                console.log('Erro de cadastro!');
+                response.text().then(function (resposta) {
+                });
+            }
+        });
+        return false;
+    }
+}
+
+</script>

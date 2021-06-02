@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil || SaltLife</title>
+    <link rel="stylesheet" href="../css/estilo-perfilusu.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head> 
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">Bem-vindo <span class="nome-titulo"><b id="b_usuario"></b></span></h1>
+            <div class="nav">
+                <ul>
+                    <li><a href="../Feed/indexfeed.html">Feed</a></li>
+                    <li><a href="../Sobre/sobre.html">Sobre</a></li>
+                    <li><a href="#" class="current">Perfil</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="banner-perfil">
+        <div class="container">
+            <div class="box-perfil">
+                <img class="img-perfil" src="../img/av4.png" alt="Imagem de Perfil">
+                <h2 class="nome-usuario">Eae <b id="b_nome"></b>,</h2><br>
+                <h3 class="tenis-usuario">Tu curte mesmo o <b id="b_tenis"></b>? Esse é lindo demaisss.</h3><br>
+                <h4 class="data-usuario">Nascido em: <b id="b_nascimento"></b></h4>
+            </div>
+        </div> 
+    </div>
+    <div class="box-sites-indicados">
+        <div class="container">
+                <h2> Sites Parceiros - CUPOM: 5%OFF 'SALTLIFE'</h2>
+            <div class="sites-parceiros">
+                <div class="componentes">
+                    <div class="img-site">
+                        <img src="../img/logo-nike.png">
+                        <h4><a href="https://www.nike.com.br/">NIKE</a></h4>
+                    </div>
+                    <div class="img-site">
+                        <img src="../img/logo-adidas.png">
+                        <h4><a href="https://www.adidas.com.br/">ADIDAS</a></h4>
+                    </div>
+                    <div class="img-site">
+                        <img src="../img/logo-ark.png">
+                        <h4><a href="https://www.artwalk.com.br/">ARTWALK</a></h4>
+                    </div>
+                    <div class="img-site">
+                        <img src="../img/logo-under.png">
+                        <h4><a href="https://www.underarmour.com.br/?utm_source=google&utm_medium=cpc&utm_campaign=brand&gclid=Cj0KCQjwhr2FBhDbARIsACjwLo1GGRmTMTzOVTBxsvMLTgEAU34c-fcNFvS6g--RZwdqamF6eYTsc4waAqd7EALw_wcB">UNDER ARMOR</a></h4>
+                    </div>
+                    <div class="img-site">
+                        <img src="../img/logo-vans.png">
+                        <h4><a href="https://www.vans.com.br/">VANS</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-btn-votacao">
+        <button onclick="ver_resultados()">VERIFICAR A VOTAÇÃO</button>
+        <button onclick="logoff()">SAIR</button>
+    </div>
+
+    <div class="grafico-votacao" id="charts_votacao" style="display: none;">
+        <canvas id="grafico_tenis_favoritos" width="500px" height="500px"></canvas>
+    </div>
+
+    <div class="relatorio">
+        <div class="container-relatorio">
+            <div id="relatorio_grafico"></div>
+        </div>
+    </div>
+
+<script>
+    const labelsBar = ['Nike Dunk', 'Air Jordan 1', 'Vans Old School', 'Air Max 2070', 'Balenciaga', 'All Star'];
+      const dataBar = {
+        labels: labelsBar,
+        datasets: [{
+         label: 'Tenis mais Votados',
+         backgroundColor: '#191970', //caso queira mudar cores das barras = backgroundColor: ['red', 'blue', 'green'] e assim por diante conforme o número de barras
+         borderColor: 'white',
+         data: [95, 120, 60, 45, 30, 50],
+      }]
+    };
+      const configBar = {
+        type: 'bar',
+        data: dataBar,
+        options: {maintainAspectRatio: false,}
+    };
+      var myChartBar = new Chart(
+        document.getElementById('grafico_tenis_favoritos'),
+        configBar
+    );
+
+    verificar_autenticacao();
+
+    lista_tenis_favoritos = ['Air Jordan 1', 'Nike Dunk', 'Vans Old School', 'All Star', 'Air Max 2070', 'Balenciaga'];
+    lista_votos_tenis = ['120', '95', '60', '50', '45', '30'];
+    lista_porcentagem = [];
+
+    function ver_resultados() {
+        charts_votacao.style.display = "block";
+
+        for (contador = 0; contador < lista_tenis_favoritos.length; contador++) {
+            var conta = (100 * Number(lista_votos_tenis[contador])) / 400;
+
+            lista_porcentagem.push(conta);
+        }
+
+        relatorio_grafico.innerHTML = "";
+        for (var contador = 0; contador < lista_tenis_favoritos.length; contador++) {
+            relatorio_grafico.innerHTML += `${contador + 1}° Tênis: ${lista_tenis_favoritos[contador]} - ${lista_porcentagem[contador]}% <br>`;
+        }
+
+
+    }
+
+function verificar_autenticacao() {
+    let login_usuario = sessionStorage.login_usuario_meuapp;
+    let nome_usuario = sessionStorage.nome_usuario_meuapp;
+    let tenis_usuario = sessionStorage.tenis_usuario_meuapp;
+    let nascimento_usuario = sessionStorage.nascimento_usuario_meuapp;
+    
+    if (login_usuario == undefined)  {
+        redirecionar_login();
+    } else {
+        b_usuario.innerHTML = nome_usuario;
+        b_nome.innerHTML = nome_usuario;
+        b_tenis.innerHTML = tenis_usuario;
+        b_nascimento.innerHTML = nascimento_usuario;
+        validar_sessao();
+    }
+    
+}
+
+function redirecionar_login() {
+    window.location.href = '../index.html';
+}
+
+function validar_sessao() {
+    fetch(`/usuarios/sessao/${sessionStorage.login_usuario_meuapp}`, {cache:'no-store'})
+    .then(resposta => {
+        if (resposta.ok) {
+            resposta.text().then(texto => {
+                console.log('Sessão :) ', texto);    
+            });
+        } else {
+            console.error('Sessão :.( ');
+        } 
+    });    
+}
+
+function logoff() {
+    finalizar_sessao();
+    sessionStorage.clear();
+    redirecionar_login();
+}
+function finalizar_sessao() {
+    fetch(`/usuarios/sair/${sessionStorage.login_usuario_meuapp}`, {cache:'no-store'}); 
+}
+function redirecionar_login() {
+    window.location.href = '../index.html';
+}
+</script>

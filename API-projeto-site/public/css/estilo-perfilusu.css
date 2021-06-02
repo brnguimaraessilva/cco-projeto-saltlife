@@ -1,0 +1,231 @@
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(182, 215, 235);
+}
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* CABEÇALHO */
+
+.container { 
+    width: 80%;
+    margin: auto;
+}
+
+.logo-header {
+    width: 150px;
+    height: 140px;
+}
+
+.img-perfil {
+    width: auto;
+    height: auto;
+}
+
+.header {
+    background-color: #232323;
+        /*overflow: auto; /* cuidado*/
+    height: 100px;
+        /*ATENÇÃO VOLTA A NAV AQUI SE SUMIR*/
+    border-bottom: 3px solid lightskyblue;
+}
+.header .container {
+    height: 80px;
+}
+.header .container .highlight {
+    color: lightskyblue;
+}
+.header h1 {
+    margin: 0;
+    padding: 0;
+    float: left;
+        /*ATENÇÃO - VAI SUMIR A NAV*/
+    margin-top: 30px;
+    color: white;
+}
+.header ul {
+    list-style-type: none;
+        /*ATENÇÃO - NAO É NO NAV*/
+    float: right;
+        /*ATENÇÃO - VAI SUMIR A NAV*/
+    margin-top: 40px;
+}
+.header li {
+    float: left;
+        /*ATENÇÃO ORDENE OS ITENS NA MESMA ORDEM QUE ESTÃO NO HTML*/
+    margin-left: 18px;
+        /* FIM*/
+}
+.header a {
+    text-transform: uppercase;
+    color: white;
+}
+.header a:hover {
+    font-weight: bold;
+}
+.header .current {
+    color: lightskyblue;
+    font-weight: bold;
+}
+
+.banner-perfil {
+    height: 250px;
+    width: 100%;
+    background: url(../img/banner-dunk-azul.jpg);
+    background-position: center;
+}
+
+.banner-perfil .container {
+    height: 400px;
+}
+.box-perfil {
+    padding-top: 160px;
+}
+.img-perfil {
+    float: left;
+    width: 155px;
+    height: 200px;
+    background-size: cover;
+}
+.banner-perfil .box-perfil {
+    font-size: 25px;
+color: gray;
+float: right;
+background-color: white;
+width: 98%;
+height: 200px;
+padding-top: 0px;
+margin-top: 145px;
+    border: 3px solid lightskyblue;
+}
+
+.nome-usuario {
+    padding-left: 165px;
+    margin-bottom: -25px;
+}
+.tenis-usuario {
+    margin-top: 0px;
+    margin-bottom: -25px;
+    padding-left: 165px;
+}
+.data-usuario {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-left: 165px;
+}
+
+.box-sites-indicados {
+    padding-top: 30px;
+    text-align: center;
+    padding-bottom: 50px; /*aqui oh a diferença entre padding e margin*/
+    color: #3d3d3d
+}
+.box-sites-indicados h2 {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    margin-top: 85px;
+    background-color: #232323;
+    color: white;
+    margin-left: 18px;
+    
+}
+
+.sites-parceiros {
+    background-color: #232323;
+    text-align: center;
+    overflow: auto;
+    margin-left: 18px;
+} 
+
+.sites-parceiros h2 {
+    margin: 0;
+    padding-top: 25px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.sites-parceiros .componentes {
+    color: white;
+    overflow: auto;
+    margin-top: 30px;
+    padding-bottom: 35px;
+    margin-left: 18px;
+}
+
+
+.sites-parceiros .componentes .img-site {
+    /*border: 3px solid cyan;*/
+    width: 18%;
+    float: left;
+    padding: 1%;
+    line-height: 1.5;
+}
+
+.sites-parceiros .img-site img {
+    height: 100px;
+    background-color: rgba(0, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 3px;
+}
+
+.nome-titulo {
+    color: lightskyblue;
+}
+
+.container-btn-votacao {
+    width: 80%;
+    height: 50px;
+    /* background-color: red; */
+    margin-bottom: 25px;
+    margin-left: 145px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.container-btn-votacao button {
+    width: 700px;
+    height: 50px;
+    margin-bottom: 5px;
+    border: solid 1px darkblue;
+    background-color: darkcyan;
+    color: white;
+    outline: none;
+    margin-left: 20px;
+}
+
+.grafico-votacao {
+    width: 100%;
+    height: 500px;
+}
+.relatorio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+.container-relatorio {
+    width: 18%;
+    height: auto;
+    /*   */
+    color: black;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.img-site h4 a {
+    text-decoration: none;
+    color: darkcyan;
+}

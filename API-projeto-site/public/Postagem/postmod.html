@@ -1,0 +1,107 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/estilo-postagem.css">
+
+     <title>Postagem || SaltLife</title>
+ </head>
+ <body>
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo"><span class="nome-titulo">SALTLIFE</span> #TENNISLOVERS</h1>
+            <div class="nav">
+                <ul>
+                    <li><a href="../Feed/indexfeed.html">Feed</a></li>
+                    <li><a href="../Sobre/sobre.html">Sobre</a></li>
+                    <li><a href="#" class="current">Postagem</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-titulopagina">
+        <h1>Deixe aqui sua Publicação...</h1>
+    </div>
+
+    <div class="container-postagem">
+        <form id="form_publicar" method="POST">
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite o Nome do Tênis: </label> <br>
+                <input type="text" name="nome" id="in_nometenis" placeholder="Nike Dunk, Air Jordan...">
+            </div>
+        </div>
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite a Marca do Tênis: </label> <br>
+                <input type="text" name="marca" id="in_marcatenis" placeholder="Nike, Vans...">
+            </div>
+        </div>
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite a Data de Lançamento: </label> <br>
+                <input type="date" name="lancamento" id="in_datalancamento" placeholder="DD/MM/AAAA">
+            </div>
+        </div>
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite o Drop do Tênis: </label> <br>
+                <input type="text" name="drop" id="in_drop" placeholder="Drop Travis Scoot, Drop NBA...">
+            </div>
+        </div>
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite o Número desse Drop: </label> <br>
+                <input type="number" name="numero" id="in_numdrop" placeholder="1, 2...">
+            </div>
+        </div>
+        <div class="box-titulopost">
+            <div class="content-postagem">
+                <label for="">Digite a Data dessa Postagem: </label> <br>
+                <input type="date" name="data" id="in_datapostagem" placeholder="DD/MM/AAAA">
+            </div>
+        </div>
+    </form>
+    <div class="btn-publicar">
+        <button onclick="chamarPublicar()" class="btn-estilo">PUBLICAR</button>
+    </div>
+</div> 
+ </body>
+ </html>
+
+ <script>
+
+    var idModerador = sessionStorage.id_moderador_meuapp;
+
+    function chamarPublicar() {
+        publicar(idModerador);
+    }
+
+    function publicar(idModerador) {
+        console.log("entrei!")
+        var formulario = new URLSearchParams(new FormData(form_publicar));
+        fetch(`/publicacoes/publicar/${idModerador}`, {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+
+            if (resposta.ok) {
+                console.log('Publicação postada!');
+
+                window.location.href='../Feed/indexfeed.html';
+            } else {
+                console.log('Erro ao publicar!');
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        });
+
+        return false;
+    }
+
+</script>

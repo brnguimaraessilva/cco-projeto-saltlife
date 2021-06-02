@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estilo-loginusu.css">
+    <title> Login || SaltLife </title>
+</head>
+
+<body class="corpo-login"> 
+    <div class="metade-um">
+        <img class="logo-login" src="./img/RED-Salt.png" />
+    </div>
+    <div class="metade-dois">
+        <div class="header">
+            <div class="container">
+                <div class="nav">
+                    <ul>
+                        <li><a href="./LoginMOD/loginmod.html" class="current">Login MOD's</a></li>
+                        <li><a href="./Sobre/sobre.html">Sobre</a></li>
+                        <li><a href="./Cadastro/cadastro.html">Cadastro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="box-login">
+                <img src="./img/img-login2.png" class="img-logousu">
+
+                <form id="form_login" method="POST" onsubmit="return verificarLogin()">
+
+                    <div class="div-login-email">
+                        <label class="form-label">E-mail:</label>
+                        <input type="text" class="form-input" id="in_email" name="login" placeholder="Digite o seu E-mail">
+                    </div>
+                    <div class="div-login-senha">
+                        <label class="form-label">Senha:</label>
+                        <input type="password" class="form-input" id="in_senha" name="senha" placeholder="Digite sua Senha">
+                    </div>
+                    <div class="div-login-btn">
+                        <button>Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+                <h4 class="parametro">saltlife@gmail.com</h4>
+                <h4>(11) 94538-4967</h4>
+                <div class="img">
+                    <img src="./img/instagram.png"><img src="./img/facebook.png"><img src="./img/twitter.png">
+                </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    function verificarLogin() { 
+    var email = in_email.value;
+    var senha = in_senha.value;
+  
+      if (email == "" && senha == "") {
+        alert("Insira seus Dados");
+      } else if (email == "") {
+        alert("Insira um E-mail");
+      } else if (senha == "") {
+        alert("Insira uma Senha");
+      } else {
+        var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+  
+            if (resposta.ok) {
+  
+                resposta.json().then(json => {
+  
+                    sessionStorage.login_usuario_meuapp = json.emailUsuario;
+                    sessionStorage.nome_usuario_meuapp = json.nomeUsuario;
+                    sessionStorage.id_usuario_meuapp = json.idUsuario;
+                    sessionStorage.nascimento_usuario_meuapp = json.dataNasc;
+                    sessionStorage.tenis_usuario_meuapp = json.tenisFavorito;
+  
+                    window.location.href='./Feed/indexfeed.html';
+                });
+  
+            } else {
+  
+                console.log('Erro de login!');
+  
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        });
+        return false;
+      }       
+}
+
+</script>

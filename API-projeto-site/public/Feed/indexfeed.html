@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed || SaltLife</title>
+    <link rel="stylesheet" href="../css/estilo-feed.css">
+
+</head>
+
+<body>
+    <div class="header">  
+        <div class="feed-container">
+            <h1 class="titulo"> <span class="titulo-colorido">SALTLIFE</span> #TENNISLOVERS</h1>
+            <div class="nav">
+                <ul>
+                    <li><a href="#" class="current">Feed</a></li>
+                    <li><a href="../Sobre/sobre.html">Sobre</a></li>
+                    <li><a href="../Perfil/perfil.html">Perfil</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="div-postagem">
+        <div class="container">
+            <div class="assunto-grande"> 
+                <div class="moderador">
+                    <img src="../img/astronauta.png" class="img-perfil" alt="Imagem de Perfil">
+                    <h2>NOME - MOD</h2>
+                </div>
+                <img src="../img/img-dunk.png" alt="Imagem Postagem" class="img-postagem"> <br>
+                <span id=""> INFORMAÇÕES SOBRE A POSTAGEM </span>
+            </div>
+        </div>
+    </div> -->
+    <div id="feed">
+        <div class="div-publicacao">
+            <div class="header-publicacao">
+                <div class="img-perfil"></div>
+                <div class="nome-usuario">
+                    Bruno Silva
+                </div>
+            </div>
+            <div class="corpo">
+                <div class="img-corpo">
+
+                </div>
+            </div>       
+            <div class="informacoes">   
+                <div id="">
+                    Tênis: Dunk
+                </div>
+                <div id="">
+                    Marca: Nike
+                </div>
+                <div id="">
+                    Data de Lançamento: 2005-02-15
+                </div>
+                <div id="">
+                    Drop: 1
+                </div>
+                <div id="">
+                    Número do Drop: 2
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <script>
+    
+    atualizarFeed();
+
+        function atualizarFeed() {
+            fetch(`/leituras/recuperandoPublicacoes`, {
+            // method: "POST",
+            // body: formulario
+        }).then((resposta) => {
+
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                feed.innerHTML += "";
+                for (let i = 0; i < resposta.length; i++) {
+                    var resposta = resposta[i];
+                
+                var div_publicacao = document.createElement("div")
+                var div_header_publicacao = document.createElement("div")
+                var div_img_perfil = document.createElement("div")
+                var div_nome_usuario = document.createElement("div")
+                var div_corpo = document.createElement("div")
+                var div_img_corpo = document.createElement("div")
+                var div_informacoes = document.createElement("div")
+                var div_tenis = document.createElement("div")
+                var div_marca = document.createElement("div")
+                var div_lancamento = document.createElement("div")
+                var div_drop = document.createElement("div")
+                var div_numero = document.createElement("div")
+
+                div_nome_usuario.innerHTML = resposta.nomeMod;
+                div_tenis.innerHTML = `Nome do Tênis: ${resposta.nomeTenis}`;
+                div_marca.innerHTML = `Marca: ${resposta.marcaTenis}`;
+                div_lancamento.innerHTML = `Data de Lançamento: ${resposta.dataLancamento}`;
+                div_drop.innerHTML = `Drop: ${resposta.drop}`;
+                div_numero.innerHTML = `Número do Drop: ${resposta.numDrop}`;
+        
+                div_publicacao.className = "div-publicacao";
+                div_header_publicacao.className = "header-publicacao";
+                div_img_perfil.className = "img-perfil";
+                div_nome_usuario.className = "nome-usuario";
+                div_corpo.className = "corpo";
+                div_img_corpo.className = "img-corpo";
+                div_informacoes.className = "informacoes";
+        
+                div_publicacao.appendChild(div_header_publicacao);
+                div_publicacao.appendChild(div_corpo);
+                div_publicacao.appendChild(div_informacoes);
+        
+                div_header_publicacao.appendChild(div_img_perfil);
+                div_header_publicacao.appendChild(div_nome_usuario);;
+        
+                div_corpo.appendChild(div_img_corpo);
+        
+                div_informacoes.appendChild(div_tenis);
+                div_informacoes.appendChild(div_marca);
+                div_informacoes.appendChild(div_lancamento);
+                div_informacoes.appendChild(div_drop);
+                div_informacoes.appendChild(div_numero);
+
+                feed.appendChild(div_publicacao);
+
+                }
+                });
+            } else {
+                console.log('Erro ao aparecer!');
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        });
+    }
+    
+        function obterPublicacoes() {
+            fetch("/publicacoes")
+            .then(resposta => {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       
+                        atualizarFeed(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção das publicações: ${error.message}`);
+            });
+        }
+    
+        function obterPublicacoesPorUsuario(idUsuario) {
+            fetch(`/publicacoes/${idUsuario}`)
+            .then(resposta => {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        // alert(JSON.stringify(resposta))
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção das publicações do usuário: ${error.message}`);
+            });
+        }
+    
+    </script>

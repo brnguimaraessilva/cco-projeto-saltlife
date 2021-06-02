@@ -1,0 +1,166 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #232323;
+        /*overflow: auto; /* cuidado*/
+    height: 100px;
+        /*ATENÇÃO VOLTA A NAV AQUI SE SUMIR*/
+    border-bottom: 3px solid red;
+}
+.header .container {
+    height: 80px;
+}
+.header .container .highlight {
+    color: red;
+}
+.header h1 {
+    margin: 0;
+    padding: 0;
+    float: left;
+        /*ATENÇÃO - VAI SUMIR A NAV*/
+    margin-top: 30px;
+    color: white;
+}
+.header ul {
+    list-style-type: none;
+        /*ATENÇÃO - NAO É NO NAV*/
+    float: right;
+        /*ATENÇÃO - VAI SUMIR A NAV*/
+    margin-top: 40px;
+}
+.header li {
+    float: left;
+        /*ATENÇÃO ORDENE OS ITENS NA MESMA ORDEM QUE ESTÃO NO HTML*/
+    margin-left: 18px;
+        /* FIM*/
+}
+.header a {
+    text-transform: uppercase;
+    color: white;
+}
+.header a:hover {
+    font-weight: bold;
+}
+.header .current {
+    color: red;
+    font-weight: bold;
+}
+
+.container { 
+    width: 80%;
+    margin: auto;
+}
+
+.nome-titulo {
+    color: red;
+}
+
+.div-titulopagina {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.div-titulopagina h1 {
+    font-style: oblique;
+}
+
+.container-postagem {
+    width: 100%;
+    height: auto;
+    /* background-color: blueviolet; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+.box-titulopost {
+    width: 85%;
+    height: auto;
+    /* background-color: chartreuse; */
+    text-align: left;
+    padding-bottom: 15px;
+}
+.box-titulopost input {
+    margin-left: 30px;
+    width: 60%;
+    height: 25px;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: solid 1px red;
+    outline: none;
+    margin-top: 15px;
+}
+.box-titulopost label {
+    padding-left: 10px;
+}
+.box-descricaopost {
+    width: 85%;
+    height: auto;
+    /* background-color: chartreuse; */
+    text-align: left;
+}
+.box-descricaopost textarea {
+    margin-left: 30px;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: solid 1px red;
+    outline: none;
+    margin-top: 15px;
+}
+.box-descricaopost label {
+    padding-left: 10px;}
+.box-imagem {
+    width: 85%;
+    height: auto;
+    /* background-color: chartreuse; */
+    text-align: left;
+    padding-bottom: 40px;
+    padding-top: 15px;
+}
+.box-imagem input { 
+    margin-left: 30px;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: solid 1px red;
+    outline: none;
+    margin-top: 15px;
+}
+.box-imagem label {
+    padding-left: 10px;
+}
+.btn-publicar {
+    width: 85%;
+    height: auto;
+    /* background-color: chartreuse; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-publicar button {
+    width: 450px;
+    height: 40px;
+    margin-bottom: 5px;
+    border: solid 1px red;
+    background-color: darkred;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}

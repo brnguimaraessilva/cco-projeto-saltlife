@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo-loginusu.css">
+    <title> Login MOD's || SaltLife </title>
+</head>
+
+<body class="corpo-cadastro">
+    <div class="metade-um">
+        <img class="logo-login" src="../img/RED-Salt.png" />
+    </div>
+    <div class="metade-dois">
+        <div class="header">
+            <div class="container">
+                <div class="nav">
+                    <ul>
+                        <li><a href="../Cadastro/cadastro.html">Cadastro</a></li>
+                        <li><a href="../Sobre/sobre.html">Sobre</a></li>
+                        <li><a href="../index.html">Login USUARIO</a></li>
+                    </ul>
+                </div>
+            </div> 
+        </div>
+        <div class="container">
+            <div class="box-login">
+                <img src="../img/img-loginmod2.png" class="img-logousu">
+
+                <form id="form_login" method="post" onsubmit="return verificarLogin()">
+
+                    <div class="div-login-email">
+                        <label class="form-label">E-mail:</label>
+                        <input type="text" class="form-input" name="login" id="in_email" placeholder="Digite o seu E-mail">
+                    </div>
+                    <div class="div-login-senha">
+                        <label class="form-label">Senha:</label>
+                        <input type="password" class="form-input" name="senha" id="in_senha" placeholder="Digite sua Senha">
+                    </div>
+                    <div class="div-login-btn">
+                        <button>Login</button>
+                    </div>
+
+                    <!-- Usuário: <input type="text" class="input-padrao" name="login">
+                    <br>
+                      Senha: <input type="password" class="input-padrao" name="senha">
+                    <br>
+                    <button id="btn_entrar" class="btn-salt">Entrar</button> -->
+
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+                <h4 class="parametro">saltlife@gmail.com</h4>
+                <h4>(11) 94538-4967</h4>
+                <div class="img">
+                    <img src="../img/instagram.png"><img src="../img/facebook.png"><img src="../img/twitter.png">
+                </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    function verificarLogin() { 
+    var email = in_email.value;
+    var senha = in_senha.value;
+  
+      if (email == "" && senha == "") {
+        alert("Insira seus Dados");
+      } else if (email == "") {
+        alert("Insira um E-mail");
+      } else if (senha == "") {
+        alert("Insira uma Senha");
+      } else {
+        var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/moderador/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+  
+            if (resposta.ok) {
+  
+                resposta.json().then(json => {
+  
+                    sessionStorage.login_moderador_meuapp = json.emailMod;
+                    sessionStorage.nome_moderador_meuapp = json.nomeMod;
+                    sessionStorage.id_moderador_meuapp = json.idModerador;
+                    sessionStorage.data_moderador_meuapp = json.dataNascMod;
+  
+                    window.location.href='../Postagem/postmod.html';
+                });
+  
+            } else {
+  
+                console.log('Erro de login!');
+  
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        });
+        return false;
+      }       
+}
+
+</script>
